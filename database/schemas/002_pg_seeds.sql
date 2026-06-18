@@ -107,9 +107,9 @@ INSERT INTO website_settings (setting_key, setting_value, setting_type, group_na
 ('site_description',     'Enterprise IT Infrastructure, CCTV Surveillance, Networking & Cybersecurity Solutions', 'text', 'General', 'Description'),
 ('contact_phone',        '+91 91939 35965',                       'text',    'Contact',   'Primary Phone'),
 ('contact_phone2',       '+91 82379 60160',                       'text',    'Contact',   'Secondary Phone'),
-('contact_email',        'info@v-trinitysolutions.com',           'text',    'Contact',   'Primary Email'),
-('contact_email_sales',  'sales@v-trinitysolutions.com',          'text',    'Contact',   'Sales Email'),
-('contact_email_support','support@v-trinitysolutions.com',        'text',    'Contact',   'Support Email'),
+('contact_email',        'vtrinitysolutions@gmail.com',           'text',    'Contact',   'Primary Email'),
+('contact_email_sales',  'vtrinitysolutions@gmail.com',           'text',    'Contact',   'Sales Email'),
+('contact_email_support','vtrinitysolutions@gmail.com',           'text',    'Contact',   'Support Email'),
 ('office_address',       'Hathras, Uttar Pradesh 204101, India',  'text',    'Contact',   'Head Office Address'),
 ('smtp_host',            'smtp.gmail.com',                        'text',    'Email',     'SMTP Host'),
 ('smtp_port',            '587',                                   'text',    'Email',     'SMTP Port'),
@@ -126,7 +126,7 @@ INSERT INTO social_links (platform, url, icon, sort_order) VALUES
 ('Twitter',   'https://twitter.com',   'fab fa-twitter',   2),
 ('Facebook',  'https://facebook.com',  'fab fa-facebook',  3),
 ('YouTube',   'https://youtube.com',   'fab fa-youtube',   4),
-('Instagram', 'https://instagram.com', 'fab fa-instagram', 5)
+('Instagram', 'https://www.instagram.com/vtrinitysolutions/', 'fab fa-instagram', 5)
 ON CONFLICT DO NOTHING;
 
 -- SERVICE CATEGORIES
