@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a4fa0"/>
+      <stop offset="100%" style="stop-color:#00c8d4"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00c8d4"/>
+      <stop offset="100%" style="stop-color:#1a4fa0"/>
+    </linearGradient>
+  </defs>
+  <!-- Top triangle (pointing down) -->
+  <polygon points="100,20 170,140 30,140" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linejoin="round"/>
+  <!-- Bottom triangle (pointing up) -->
+  <polygon points="100,180 30,60 170,60" fill="none" stroke="url(#g2)" stroke-width="10" stroke-linejoin="round"/>
+  <!-- Inner V shape -->
+  <polyline points="70,90 100,130 130,90" fill="none" stroke="url(#g1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Center cross/plus -->
+  <line x1="100" y1="75" x2="100" y2="115" stroke="url(#g2)" stroke-width="7" stroke-linecap="round"/>
+  <line x1="83" y1="95" x2="117" y2="95" stroke="url(#g2)" stroke-width="7" stroke-linecap="round"/>
+</svg>

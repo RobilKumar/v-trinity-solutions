@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #0052cc;
+  --brand-secondary: #00b4d8;
+  --brand-accent: #ff6b35;
+  --brand-dark: #0a0e1a;
+  --brand-gradient: linear-gradient(135deg, #0052cc 0%, #00b4d8 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1a202c;
+  background-color: #f8faff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Utility Classes ---- */
+.section-padding { @apply py-16 md:py-24; }
+.container-xl { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+.gradient-text {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300;
+  background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1a70ff 0%, #0052cc 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,82,204,0.4);
+}
+
+.btn-outline {
+  @apply inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold border-2 border-white text-white transition-all duration-300;
+}
+.btn-outline:hover {
+  @apply bg-white text-primary-600;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold font-heading text-dark-800 mb-4;
+}
+.section-subtitle {
+  @apply text-lg text-gray-500 max-w-2xl;
+}
+
+/* ---- Hero section ---- */
+.hero-section {
+  background: linear-gradient(135deg, #0a0e1a 0%, #0d1b3e 50%, #0a0e1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(0,82,204,0.3) 0%, transparent 60%);
+}
+
+/* ---- Service card ---- */
+.service-card {
+  @apply bg-white rounded-2xl p-6 transition-all duration-300 border border-gray-100;
+  box-shadow: 0 4px 20px rgba(0,82,204,0.06);
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,82,204,0.12);
+  border-color: rgba(0,82,204,0.2);
+}
+.service-card .icon-wrap {
+  @apply w-14 h-14 rounded-xl flex items-center justify-center mb-4;
+  background: linear-gradient(135deg, rgba(0,82,204,0.1) 0%, rgba(0,180,216,0.1) 100%);
+  color: #0052cc;
+  font-size: 1.5rem;
+}
+
+/* ---- Stats counter ---- */
+.stat-card {
+  @apply text-center p-6 rounded-2xl;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.stat-number {
+  @apply text-4xl md:text-5xl font-bold font-heading;
+  background: linear-gradient(135deg, #ffffff 0%, #00b4d8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Navbar ---- */
+.navbar-scrolled {
+  @apply shadow-lg;
+  background: rgba(10, 14, 26, 0.97) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,82,204,0.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(0,82,204,0); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-pulse-glow { animation: pulse-glow 2s infinite; }
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #0052cc; border-radius: 3px; }
+
+/* ---- CMS / Admin styles ---- */
+.cms-sidebar {
+  background: linear-gradient(180deg, #0a0e1a 0%, #0d1b3e 100%);
+  min-height: 100vh;
+}
+.cms-sidebar .nav-item {
+  @apply flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 transition-all duration-200 cursor-pointer text-sm font-medium;
+}
+.cms-sidebar .nav-item:hover, .cms-sidebar .nav-item.active {
+  @apply bg-white/10 text-white;
+}
+.cms-sidebar .nav-item.active {
+  background: linear-gradient(135deg, rgba(0,82,204,0.4) 0%, rgba(0,180,216,0.2) 100%);
+  border-left: 3px solid #00b4d8;
+}
+
+/* ---- Rich text editor ---- */
+.ql-editor { min-height: 250px; font-family: 'Inter', sans-serif; }

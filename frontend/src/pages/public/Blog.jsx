@@ -1,0 +1,24 @@
+﻿import React,{useEffect,useState}from'react';import{Link,useSearchParams}from'react-router-dom';import{Helmet}from'react-helmet-async';import{CircularProgress,Chip,TextField}from'@mui/material';import{motion}from'framer-motion';import api from'../../services/api';
+export default function Blog(){const[posts,setPosts]=useState([]);const[categories,setCategories]=useState([]);const[loading,setLoading]=useState(true);const[total,setTotal]=useState(0);const[page,setPage]=useState(1);const[searchParams,setSearchParams]=useSearchParams();const category=searchParams.get('cat')||'';const search=searchParams.get('q')||'';const[searchVal,setSearchVal]=useState(search);
+useEffect(()=>{setLoading(true);const params=new URLSearchParams({page,limit:9,...(category&&{category}),...(search&&{search})});Promise.all([api.get(`/blog?${params}`),api.get('/blog/meta/categories')]).then(([p,c])=>{setPosts(p.data.data);setTotal(p.data.pagination?.total||0);setCategories(c.data.data);}).catch(()=>{}).finally(()=>setLoading(false));
+},[page,category,search]);
+const handleSearch=e=>{e.preventDefault();setSearchParams(p=>{const n=new URLSearchParams(p);n.set('q',searchVal);return n;});setPage(1);};
+return(<><Helmet><title>Blog – V-Trinity Solutions</title></Helmet>
+<div style={{background:'linear-gradient(135deg,#0a0e1a,#0d1b3e)',paddingTop:80}}><div className="container-xl py-16 text-center"><motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}}><span className="text-secondary-500 font-semibold text-sm uppercase tracking-widest">Knowledge Hub</span><h1 className="text-5xl font-bold font-heading text-white mt-3 mb-4">Latest Insights</h1><p className="text-gray-300 text-lg max-w-xl mx-auto">Expert articles on cybersecurity, IT infrastructure, cloud and surveillance technology.</p>
+<form onSubmit={handleSearch} className="mt-6 max-w-md mx-auto flex gap-2"><TextField fullWidth size="small" placeholder="Search articles..." value={searchVal} onChange={e=>setSearchVal(e.target.value)} sx={{'& .MuiOutlinedInput-root':{bgcolor:'rgba(255,255,255,0.1)',color:'#fff','& fieldset':{borderColor:'rgba(255,255,255,0.2)'}}}}/><button type="submit" className="btn-primary py-2 px-4 text-sm">Search</button></form>
+</motion.div></div></div>
+<div className="section-padding bg-white"><div className="container-xl">
+<div className="flex flex-wrap gap-2 mb-8"><Chip label="All" clickable variant={!category?'filled':'outlined'} color={!category?'primary':'default'} onClick={()=>{setSearchParams({});setPage(1);}}/>{categories.map(c=><Chip key={c.Slug} label={c.Name} clickable variant={category===c.Slug?'filled':'outlined'} color={category===c.Slug?'primary':'default'} onClick={()=>{setSearchParams({cat:c.Slug});setPage(1);}}/>)}</div>
+{loading?<div className="text-center py-16"><CircularProgress/></div>:<>
+{!posts.length?<div className="text-center py-16 text-gray-400">No articles found.</div>:
+<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">{posts.map((post,i)=><motion.div key={post.PostID} initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:i*0.05}}>
+<Link to={`/blog/${post.Slug}`} className="block rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group h-full">
+<div className="h-48 bg-gradient-to-br from-primary-600 to-secondary-500 overflow-hidden">{post.FeaturedImage?<img src={post.FeaturedImage} alt={post.Title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>:<div className="w-full h-full flex items-center justify-center text-5xl opacity-40">📰</div>}</div>
+<div className="p-5"><div className="flex items-center gap-2 mb-2">{post.CategoryName&&<span className="text-xs font-semibold text-primary-500 uppercase">{post.CategoryName}</span>}<span className="text-gray-300">·</span><span className="text-xs text-gray-400">{new Date(post.PublishAt||post.CreatedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div>
+<h3 className="font-bold text-dark-800 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">{post.Title}</h3>
+<p className="text-gray-500 text-sm line-clamp-2">{post.Excerpt}</p>
+<div className="mt-3 text-xs text-gray-400">By {post.AuthorName} · {post.ViewCount||0} views</div></div></Link></motion.div>)}</div>}
+{total>9&&<div className="flex justify-center gap-2 mt-10"><button onClick={()=>setPage(p=>p-1)} disabled={page===1} className="px-4 py-2 rounded-lg border border-gray-200 text-sm disabled:opacity-40">← Prev</button><span className="px-4 py-2 text-sm text-gray-500">Page {page} of {Math.ceil(total/9)}</span><button onClick={()=>setPage(p=>p+1)} disabled={page*9>=total} className="px-4 py-2 rounded-lg border border-gray-200 text-sm disabled:opacity-40">Next →</button></div>}
+</>}</div></div></>);}
+
+

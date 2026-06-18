@@ -1,0 +1,40 @@
+const express = require('express');
+const router = express.Router();
+
+const authRoutes      = require('./auth');
+const servicesRoutes  = require('./services');
+const solutionsRoutes = require('./solutions');
+const projectsRoutes  = require('./projects');
+const blogRoutes      = require('./blog');
+const inquiryRoutes   = require('./inquiries');
+const careersRoutes   = require('./careers');
+const mediaRoutes     = require('./media');
+const settingsRoutes  = require('./settings');
+const seoRoutes       = require('./seo');
+const usersRoutes     = require('./users');
+const contactRoutes   = require('./contact');
+const publicRoutes    = require('./public');
+const portalRoutes    = require('./portal');
+const dashboardRoutes = require('./dashboard');
+const industriesRoutes= require('./industries');
+const caseStudiesRoutes=require('./case-studies');
+
+router.use('/auth',      authRoutes);
+router.use('/services',  servicesRoutes);
+router.use('/solutions', solutionsRoutes);
+router.use('/projects',  projectsRoutes);
+router.use('/blog',      blogRoutes);
+router.use('/inquiries', inquiryRoutes);
+router.use('/careers',   careersRoutes);
+router.use('/media',     mediaRoutes);
+router.use('/settings',  settingsRoutes);
+router.use('/seo',       seoRoutes);
+router.use('/users',     usersRoutes);
+router.use('/contact',   contactRoutes);
+router.use('/public',      publicRoutes);
+router.use('/portal',      portalRoutes);
+router.use('/dashboard',   dashboardRoutes);
+router.use('/industries',  industriesRoutes);
+router.use('/case-studies',caseStudiesRoutes);
+
+module.exports = router;
