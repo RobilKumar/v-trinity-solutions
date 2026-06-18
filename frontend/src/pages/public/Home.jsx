@@ -57,7 +57,7 @@ export default function Home() {
   const [bannerIdx, setBannerIdx] = useState(0);
 
   useEffect(() => {
-    api.get('/public/home').then(r => setData(r.data.data)).catch(() => {});
+    api.get('/public/home').then(r => setData(prev => ({ ...prev, ...r.data.data }))).catch(() => {});
     const timer = setInterval(() => setBannerIdx(i => (i + 1) % Math.max(data.banners.length, 1)), 6000);
     return () => clearInterval(timer);
   }, [data.banners.length]);
