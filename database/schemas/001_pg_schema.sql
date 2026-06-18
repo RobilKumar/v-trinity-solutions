@@ -1,9 +1,7 @@
 -- ============================================================
--- V-Trinity Solutions — PostgreSQL Schema (Neon/Supabase)
--- Migrated from MS SQL Server
+-- V-Trinity Solutions — PostgreSQL Schema (Neon)
 -- ============================================================
 
--- SECTION 1: USERS & AUTH
 CREATE TABLE IF NOT EXISTS roles (
     role_id     SERIAL PRIMARY KEY,
     role_name   VARCHAR(100) NOT NULL UNIQUE,
@@ -66,7 +64,6 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 2: WEBSITE SETTINGS
 CREATE TABLE IF NOT EXISTS website_settings (
     setting_id    SERIAL PRIMARY KEY,
     setting_key   VARCHAR(200) NOT NULL UNIQUE,
@@ -104,7 +101,6 @@ CREATE TABLE IF NOT EXISTS office_locations (
     sort_order  INT DEFAULT 0
 );
 
--- SECTION 3: NAVIGATION
 CREATE TABLE IF NOT EXISTS menus (
     menu_id   SERIAL PRIMARY KEY,
     menu_name VARCHAR(100) NOT NULL,
@@ -125,7 +121,6 @@ CREATE TABLE IF NOT EXISTS menu_items (
     is_active  BOOLEAN DEFAULT true
 );
 
--- SECTION 4: SEO
 CREATE TABLE IF NOT EXISTS seo_pages (
     seo_id           SERIAL PRIMARY KEY,
     page_slug        VARCHAR(300) NOT NULL UNIQUE,
@@ -142,7 +137,6 @@ CREATE TABLE IF NOT EXISTS seo_pages (
     updated_at       TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 5: MEDIA
 CREATE TABLE IF NOT EXISTS media_folders (
     folder_id  SERIAL PRIMARY KEY,
     parent_id  INT REFERENCES media_folders(folder_id),
@@ -166,24 +160,23 @@ CREATE TABLE IF NOT EXISTS media_files (
     created_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 6: HOME PAGE
 CREATE TABLE IF NOT EXISTS hero_banners (
-    banner_id   SERIAL PRIMARY KEY,
-    title       VARCHAR(300) NOT NULL,
-    subtitle    VARCHAR(500),
-    description VARCHAR(1000),
-    button_text VARCHAR(100),
-    button_url  VARCHAR(500),
+    banner_id    SERIAL PRIMARY KEY,
+    title        VARCHAR(300) NOT NULL,
+    subtitle     VARCHAR(500),
+    description  VARCHAR(1000),
+    button_text  VARCHAR(100),
+    button_url   VARCHAR(500),
     button2_text VARCHAR(100),
     button2_url  VARCHAR(500),
-    image_id    INT REFERENCES media_files(file_id),
-    video_url   VARCHAR(500),
-    bg_color    VARCHAR(50),
-    text_color  VARCHAR(50),
-    sort_order  INT DEFAULT 0,
-    is_active   BOOLEAN DEFAULT true,
-    created_at  TIMESTAMPTZ DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ DEFAULT NOW()
+    image_id     INT REFERENCES media_files(file_id),
+    video_url    VARCHAR(500),
+    bg_color     VARCHAR(50),
+    text_color   VARCHAR(50),
+    sort_order   INT DEFAULT 0,
+    is_active    BOOLEAN DEFAULT true,
+    created_at   TIMESTAMPTZ DEFAULT NOW(),
+    updated_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS site_statistics (
@@ -239,7 +232,6 @@ CREATE TABLE IF NOT EXISTS testimonials (
     created_at     TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 7: SERVICES
 CREATE TABLE IF NOT EXISTS service_categories (
     category_id SERIAL PRIMARY KEY,
     name        VARCHAR(200) NOT NULL,
@@ -251,20 +243,20 @@ CREATE TABLE IF NOT EXISTS service_categories (
 );
 
 CREATE TABLE IF NOT EXISTS services (
-    service_id  SERIAL PRIMARY KEY,
-    category_id INT REFERENCES service_categories(category_id),
-    title       VARCHAR(300) NOT NULL,
-    slug        VARCHAR(300) NOT NULL UNIQUE,
-    short_desc  VARCHAR(500),
-    full_desc   TEXT,
-    icon        VARCHAR(100),
-    banner_id   INT REFERENCES media_files(file_id),
+    service_id   SERIAL PRIMARY KEY,
+    category_id  INT REFERENCES service_categories(category_id),
+    title        VARCHAR(300) NOT NULL,
+    slug         VARCHAR(300) NOT NULL UNIQUE,
+    short_desc   VARCHAR(500),
+    full_desc    TEXT,
+    icon         VARCHAR(100),
+    banner_id    INT REFERENCES media_files(file_id),
     thumbnail_id INT REFERENCES media_files(file_id),
-    sort_order  INT DEFAULT 0,
-    is_active   BOOLEAN DEFAULT true,
-    is_featured BOOLEAN DEFAULT false,
-    created_at  TIMESTAMPTZ DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ DEFAULT NOW()
+    sort_order   INT DEFAULT 0,
+    is_active    BOOLEAN DEFAULT true,
+    is_featured  BOOLEAN DEFAULT false,
+    created_at   TIMESTAMPTZ DEFAULT NOW(),
+    updated_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS service_faqs (
@@ -275,7 +267,6 @@ CREATE TABLE IF NOT EXISTS service_faqs (
     sort_order INT DEFAULT 0
 );
 
--- SECTION 8: SOLUTIONS
 CREATE TABLE IF NOT EXISTS solutions (
     solution_id  SERIAL PRIMARY KEY,
     title        VARCHAR(300) NOT NULL,
@@ -294,7 +285,6 @@ CREATE TABLE IF NOT EXISTS solutions (
     updated_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 9: INDUSTRIES
 CREATE TABLE IF NOT EXISTS industries (
     industry_id  SERIAL PRIMARY KEY,
     name         VARCHAR(200) NOT NULL,
@@ -307,7 +297,6 @@ CREATE TABLE IF NOT EXISTS industries (
     is_active    BOOLEAN DEFAULT true
 );
 
--- SECTION 10: PROJECTS
 CREATE TABLE IF NOT EXISTS projects (
     project_id      SERIAL PRIMARY KEY,
     industry_id     INT REFERENCES industries(industry_id),
@@ -321,7 +310,7 @@ CREATE TABLE IF NOT EXISTS projects (
     results         TEXT,
     technologies    TEXT,
     project_value   DECIMAL(18,2),
-    currency        VARCHAR(10) DEFAULT 'USD',
+    currency        VARCHAR(10) DEFAULT 'INR',
     start_date      DATE,
     completion_date DATE,
     banner_id       INT REFERENCES media_files(file_id),
@@ -332,7 +321,6 @@ CREATE TABLE IF NOT EXISTS projects (
     updated_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 11: CASE STUDIES
 CREATE TABLE IF NOT EXISTS case_studies (
     case_study_id SERIAL PRIMARY KEY,
     project_id    INT REFERENCES projects(project_id),
@@ -351,7 +339,6 @@ CREATE TABLE IF NOT EXISTS case_studies (
     updated_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 12: BLOG
 CREATE TABLE IF NOT EXISTS blog_categories (
     category_id SERIAL PRIMARY KEY,
     name        VARCHAR(200) NOT NULL,
@@ -361,24 +348,23 @@ CREATE TABLE IF NOT EXISTS blog_categories (
 );
 
 CREATE TABLE IF NOT EXISTS blog_posts (
-    post_id          SERIAL PRIMARY KEY,
-    category_id      INT REFERENCES blog_categories(category_id),
-    author_id        INT NOT NULL REFERENCES users(user_id),
-    title            VARCHAR(300) NOT NULL,
-    slug             VARCHAR(300) NOT NULL UNIQUE,
-    excerpt          VARCHAR(500),
-    content          TEXT NOT NULL,
-    featured_img_id  INT REFERENCES media_files(file_id),
-    status           VARCHAR(20) DEFAULT 'draft',
-    publish_at       TIMESTAMPTZ,
-    view_count       INT DEFAULT 0,
-    is_featured      BOOLEAN DEFAULT false,
-    allow_comments   BOOLEAN DEFAULT true,
-    created_at       TIMESTAMPTZ DEFAULT NOW(),
-    updated_at       TIMESTAMPTZ DEFAULT NOW()
+    post_id         SERIAL PRIMARY KEY,
+    category_id     INT REFERENCES blog_categories(category_id),
+    author_id       INT NOT NULL REFERENCES users(user_id),
+    title           VARCHAR(300) NOT NULL,
+    slug            VARCHAR(300) NOT NULL UNIQUE,
+    excerpt         VARCHAR(500),
+    content         TEXT NOT NULL,
+    featured_img_id INT REFERENCES media_files(file_id),
+    status          VARCHAR(20) DEFAULT 'draft',
+    publish_at      TIMESTAMPTZ,
+    view_count      INT DEFAULT 0,
+    is_featured     BOOLEAN DEFAULT false,
+    allow_comments  BOOLEAN DEFAULT true,
+    created_at      TIMESTAMPTZ DEFAULT NOW(),
+    updated_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 13: CAREERS
 CREATE TABLE IF NOT EXISTS job_listings (
     job_id         SERIAL PRIMARY KEY,
     title          VARCHAR(300) NOT NULL,
@@ -397,7 +383,6 @@ CREATE TABLE IF NOT EXISTS job_listings (
     updated_at     TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 14: INQUIRIES
 CREATE TABLE IF NOT EXISTS inquiries (
     inquiry_id   SERIAL PRIMARY KEY,
     inquiry_type VARCHAR(100) NOT NULL,
@@ -418,7 +403,6 @@ CREATE TABLE IF NOT EXISTS inquiries (
     updated_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 15: CONTACT
 CREATE TABLE IF NOT EXISTS contact_submissions (
     submission_id SERIAL PRIMARY KEY,
     name          VARCHAR(200) NOT NULL,
@@ -431,7 +415,6 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     created_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- SECTION 16: ABOUT
 CREATE TABLE IF NOT EXISTS team_members (
     member_id   SERIAL PRIMARY KEY,
     name        VARCHAR(200) NOT NULL,
@@ -455,7 +438,6 @@ CREATE TABLE IF NOT EXISTS company_timeline (
     is_active  BOOLEAN DEFAULT true
 );
 
--- SECTION 17: EMAIL
 CREATE TABLE IF NOT EXISTS email_templates (
     template_id  SERIAL PRIMARY KEY,
     template_key VARCHAR(100) NOT NULL UNIQUE,
@@ -466,7 +448,6 @@ CREATE TABLE IF NOT EXISTS email_templates (
     updated_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_services_slug ON services(slug);
 CREATE INDEX IF NOT EXISTS idx_solutions_slug ON solutions(slug);
