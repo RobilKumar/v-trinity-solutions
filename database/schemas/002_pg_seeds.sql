@@ -223,7 +223,7 @@ ON CONFLICT (slug) DO NOTHING;
 
 -- HERO BANNERS
 INSERT INTO hero_banners (title, subtitle, description, button_text, button_url, button2_text, button2_url, sort_order, is_active) VALUES
-('Securing Tomorrow,\nToday', 'Enterprise IT & Security Solutions', 'End-to-end IT infrastructure, CCTV surveillance, cybersecurity, and cloud solutions trusted by 350+ enterprises across India.', 'Explore Services', '/services', 'Request a Solution', '/request-solution', 1, true),
+('Securing Tomorrow, Today', 'Enterprise IT & Security Solutions', 'End-to-end IT infrastructure, CCTV surveillance, cybersecurity, and cloud solutions trusted by 350+ enterprises across India.', 'Explore Services', '/services', 'Request a Solution', '/request-solution', 1, true),
 ('Smart City Surveillance', 'AI-Powered CCTV Systems', '500+ cameras deployed across cities with real-time analytics, facial recognition, and centralized monitoring for safer communities.', 'View Projects', '/projects', 'Learn More', '/services/cctv-surveillance-systems', 2, true),
 ('Protect Your Business', '24/7 SOC & Cybersecurity', 'Round-the-clock Security Operations Center, threat intelligence, and incident response — keeping your business safe from cyber threats.', 'Get Protected', '/services/cybersecurity-solutions', 'Free Assessment', '/contact', 3, true)
 ON CONFLICT DO NOTHING;
