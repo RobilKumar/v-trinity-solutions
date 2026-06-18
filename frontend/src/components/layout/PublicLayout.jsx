@@ -79,9 +79,6 @@ export default function PublicLayout() {
                 <i className={s.Icon}></i>
               </a>
             ))}
-            <Link to="/portal" className="ml-4 text-secondary-500 hover:text-white transition-colors font-medium">
-              Customer Portal
-            </Link>
           </div>
         </div>
       </div>
