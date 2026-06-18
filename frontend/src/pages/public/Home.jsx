@@ -63,13 +63,13 @@ export default function Home() {
   }, [data.banners.length]);
 
   const currentBanner = data.banners[bannerIdx] || {
-    Title: 'Enterprise IT & Security Solutions',
-    Subtitle: 'Trusted Technology Partner',
-    Description: 'Delivering world-class CCTV surveillance, IT infrastructure, networking, cloud and cybersecurity solutions for enterprises.',
-    ButtonText: 'Explore Services',
-    ButtonURL: '/services',
-    Button2Text: 'Request a Solution',
-    Button2URL: '/request-solution',
+    title: 'Enterprise IT & Security Solutions',
+    subtitle: 'Trusted Technology Partner',
+    description: 'Delivering world-class CCTV surveillance, IT infrastructure, networking, cloud and cybersecurity solutions for enterprises.',
+    button_text: 'Explore Services',
+    button_url: '/services',
+    button2_text: 'Request a Solution',
+    button2_url: '/request-solution',
   };
 
   const SERVICES = [
@@ -102,20 +102,20 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
                    style={{ background: 'rgba(0,82,204,0.2)', border: '1px solid rgba(0,82,204,0.4)', color: '#4d90ff' }}>
                 <span className="animate-pulse-glow w-2 h-2 rounded-full bg-secondary-500 inline-block"></span>
-                {currentBanner.Subtitle || 'Trusted Technology Partner'}
+                {currentBanner.subtitle || 'Trusted Technology Partner'}
               </div>
               <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold font-heading text-white leading-tight mb-6">
-                {currentBanner.Title}
+                {currentBanner.title}
               </h1>
               <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-xl">
-                {currentBanner.Description}
+                {currentBanner.description}
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to={currentBanner.ButtonURL || '/services'} className="btn-primary text-base">
-                  {currentBanner.ButtonText || 'Explore Services'} →
+                <Link to={currentBanner.button_url || '/services'} className="btn-primary text-base">
+                  {currentBanner.button_text || 'Explore Services'} →
                 </Link>
-                <Link to={currentBanner.Button2URL || '/request-solution'} className="btn-outline text-base">
-                  {currentBanner.Button2Text || 'Request a Solution'}
+                <Link to={currentBanner.button2_url || '/request-solution'} className="btn-outline text-base">
+                  {currentBanner.button2_text || 'Request a Solution'}
                 </Link>
               </div>
             </motion.div>
@@ -152,17 +152,17 @@ export default function Home() {
         <div className="container-xl">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {(data.stats.length ? data.stats : [
-              { Label: 'Projects Completed', Value: '500', Suffix: '+', Icon: '🏗️' },
-              { Label: 'Happy Clients',       Value: '350', Suffix: '+', Icon: '😊' },
-              { Label: 'Years Experience',    Value: '15',  Suffix: '+', Icon: '📅' },
-              { Label: 'Expert Engineers',    Value: '120', Suffix: '+', Icon: '👨‍💻' },
+              { label: 'Projects Completed', value: '500', suffix: '+', icon: '🏗️' },
+              { label: 'Happy Clients',       value: '350', suffix: '+', icon: '😊' },
+              { label: 'Years Experience',    value: '15',  suffix: '+', icon: '📅' },
+              { label: 'Expert Engineers',    value: '120', suffix: '+', icon: '👨‍💻' },
             ]).map((stat, i) => (
               <motion.div key={i} custom={i} variants={fadeUp} className="stat-card">
-                <div className="text-3xl mb-2"><Icon value={stat.Icon} /></div>
+                <div className="text-3xl mb-2"><Icon value={stat.icon} /></div>
                 <div className="stat-number">
-                  <AnimatedCounter value={stat.Value} suffix={stat.Suffix} />
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-blue-200 text-sm mt-1 font-medium">{stat.Label}</div>
+                <div className="text-blue-200 text-sm mt-1 font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -182,10 +182,10 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(data.featuredServices.length ? data.featuredServices : SERVICES).map((s, i) => (
               <motion.div key={i} custom={i} variants={fadeUp}>
-                <Link to={`/services/${s.slug || s.Slug}`} className="service-card block h-full">
-                  <div className="icon-wrap"><Icon value={s.icon || s.Icon || '🔧'} /></div>
-                  <h3 className="text-lg font-semibold text-dark-800 mb-2">{s.title || s.Title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{s.desc || s.ShortDesc}</p>
+                <Link to={`/services/${s.slug}`} className="service-card block h-full">
+                  <div className="icon-wrap"><Icon value={s.icon || '🔧'} /></div>
+                  <h3 className="text-lg font-semibold text-dark-800 mb-2">{s.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{s.short_desc || s.desc}</p>
                   <div className="mt-4 text-primary-500 font-medium text-sm">Learn more →</div>
                 </Link>
               </motion.div>
@@ -211,10 +211,10 @@ export default function Home() {
               </motion.p>
               <div className="space-y-4">
                 {(data.whyUs.length ? data.whyUs : [
-                  { Title: '15+ Years Experience', Description: 'Proven track record of successful enterprise deployments.' },
-                  { Title: 'Certified Engineers',   Description: 'CISSP, CCNA, AWS and Azure certified professionals.' },
-                  { Title: '24/7 Support',          Description: 'Round-the-clock NOC and helpdesk support.' },
-                  { Title: 'End-to-End Solutions',  Description: 'From design to deployment to managed services.' },
+                  { title: '15+ Years Experience', description: 'Proven track record of successful enterprise deployments.' },
+                  { title: 'Certified Engineers',   description: 'CISSP, CCNA, AWS and Azure certified professionals.' },
+                  { title: '24/7 Support',          description: 'Round-the-clock NOC and helpdesk support.' },
+                  { title: 'End-to-End Solutions',  description: 'From design to deployment to managed services.' },
                 ]).map((item, i) => (
                   <motion.div key={i} custom={i} variants={fadeUp} className="flex gap-4 items-start">
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
@@ -222,8 +222,8 @@ export default function Home() {
                       <span className="text-white text-xs">✓</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-dark-800">{item.Title}</h4>
-                      <p className="text-gray-500 text-sm">{item.Description}</p>
+                      <h4 className="font-semibold text-dark-800">{item.title}</h4>
+                      <p className="text-gray-500 text-sm">{item.description}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -253,20 +253,20 @@ export default function Home() {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.featuredProjects.slice(0, 6).map((proj, i) => (
-                <motion.div key={proj.ProjectID} custom={i} variants={fadeUp}>
-                  <Link to={`/projects/${proj.Slug}`}
+                <motion.div key={proj.project_id} custom={i} variants={fadeUp}>
+                  <Link to={`/projects/${proj.slug}`}
                     className="block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-gray-100">
                     <div className="h-48 bg-gradient-to-br from-primary-600 to-secondary-500 flex items-center justify-center">
-                      {proj.ThumbnailURL ? (
-                        <img src={proj.ThumbnailURL} alt={proj.ProjectName} className="w-full h-full object-cover" />
+                      {proj.thumbnail_url ? (
+                        <img src={proj.thumbnail_url} alt={proj.project_name} className="w-full h-full object-cover" />
                       ) : (
                         <span className="text-6xl">🏗️</span>
                       )}
                     </div>
                     <div className="p-5">
-                      <span className="text-xs font-semibold text-primary-500 uppercase">{proj.IndustryName}</span>
-                      <h3 className="font-semibold text-dark-800 mt-1 mb-1">{proj.ProjectName}</h3>
-                      <p className="text-gray-500 text-sm">{proj.ClientName} · {proj.Location}</p>
+                      <span className="text-xs font-semibold text-primary-500 uppercase">{proj.industry_name}</span>
+                      <h3 className="font-semibold text-dark-800 mt-1 mb-1">{proj.project_name}</h3>
+                      <p className="text-gray-500 text-sm">{proj.client_name} · {proj.location}</p>
                     </div>
                   </Link>
                 </motion.div>
@@ -316,20 +316,20 @@ export default function Home() {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.testimonials.slice(0, 3).map((t, i) => (
-                <motion.div key={t.TestimonialID} custom={i} variants={fadeUp}
+                <motion.div key={t.testimonial_id} custom={i} variants={fadeUp}
                   className="p-6 rounded-2xl border border-gray-100"
                   style={{ boxShadow: '0 4px 20px rgba(0,82,204,0.06)' }}>
                   <div className="flex gap-1 mb-4">
-                    {Array(t.Rating).fill(0).map((_, j) => <span key={j} className="text-yellow-400 text-sm">★</span>)}
+                    {Array(t.rating || 5).fill(0).map((_, j) => <span key={j} className="text-yellow-400 text-sm">★</span>)}
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">"{t.Content}"</p>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">"{t.content}"</p>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold">
-                      {t.AvatarURL ? <img src={t.AvatarURL} alt={t.ClientName} className="w-full h-full rounded-full object-cover" /> : t.ClientName[0]}
+                    <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold overflow-hidden">
+                      {t.avatar_url ? <img src={t.avatar_url} alt={t.client_name} className="w-full h-full rounded-full object-cover" /> : (t.client_name || '?')[0]}
                     </div>
                     <div>
-                      <div className="font-semibold text-dark-800 text-sm">{t.ClientName}</div>
-                      <div className="text-gray-400 text-xs">{t.Designation}, {t.Company}</div>
+                      <div className="font-semibold text-dark-800 text-sm">{t.client_name}</div>
+                      <div className="text-gray-400 text-xs">{t.designation}, {t.company}</div>
                     </div>
                   </div>
                 </motion.div>

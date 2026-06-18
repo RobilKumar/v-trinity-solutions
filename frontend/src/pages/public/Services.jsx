@@ -49,10 +49,10 @@ export default function Services() {
             <Chip label="All Services" clickable variant={!activeCategory ? 'filled' : 'outlined'} color={!activeCategory ? 'primary' : 'default'}
               onClick={() => setSearchParams({})} />
             {categories.map(cat => (
-              <Chip key={cat.Slug} label={cat.Name} clickable
-                variant={activeCategory === cat.Slug ? 'filled' : 'outlined'}
-                color={activeCategory === cat.Slug ? 'primary' : 'default'}
-                onClick={() => setSearchParams({ cat: cat.Slug })} />
+              <Chip key={cat.slug} label={cat.name} clickable
+                variant={activeCategory === cat.slug ? 'filled' : 'outlined'}
+                color={activeCategory === cat.slug ? 'primary' : 'default'}
+                onClick={() => setSearchParams({ cat: cat.slug })} />
             ))}
           </div>
 
@@ -61,12 +61,12 @@ export default function Services() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {services.map((svc, i) => (
-                <motion.div key={svc.ServiceID} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                  <Link to={`/services/${svc.Slug}`} className="service-card block h-full">
-                    <div className="icon-wrap"><Icon value={svc.Icon || '🛠️'} /></div>
-                    <div className="text-xs font-semibold text-primary-500 uppercase mb-1">{svc.CategoryName}</div>
-                    <h3 className="text-lg font-semibold text-dark-800 mb-2">{svc.Title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{svc.ShortDesc}</p>
+                <motion.div key={svc.service_id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+                  <Link to={`/services/${svc.slug}`} className="service-card block h-full">
+                    <div className="icon-wrap"><Icon value={svc.icon || '🛠️'} /></div>
+                    <div className="text-xs font-semibold text-primary-500 uppercase mb-1">{svc.category_name}</div>
+                    <h3 className="text-lg font-semibold text-dark-800 mb-2">{svc.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{svc.short_desc}</p>
                     <div className="mt-4 text-primary-500 font-medium text-sm">Learn more →</div>
                   </Link>
                 </motion.div>
