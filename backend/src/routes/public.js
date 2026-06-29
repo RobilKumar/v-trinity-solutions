@@ -20,7 +20,10 @@ router.get('/home', async (req, res, next) => {
       featuredProjects: projects.rows,
       testimonials:     testimonials.rows,
     }});
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error(err.stack);
+    next(err);
+}
 });
 
 router.get('/settings', async (req, res, next) => {
@@ -32,7 +35,10 @@ router.get('/settings', async (req, res, next) => {
     const settingsObj = {};
     settings.rows.forEach(s => { settingsObj[s.setting_key] = s.setting_value; });
     res.json({ success: true, data: { settings: settingsObj, socialLinks: social.rows, locations: [] } });
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error(err.stack);
+    next(err);
+}
 });
 
 router.get('/menu/:location', async (req, res, next) => {
@@ -46,14 +52,20 @@ router.get('/menu/:location', async (req, res, next) => {
       ...parent, children: items.filter(i => i.parent_id === parent.item_id),
     }));
     res.json({ success: true, data: tree });
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error(err.stack);
+    next(err);
+}
 });
 
 router.get('/industries', async (req, res, next) => {
   try {
     const result = await query(`SELECT i.*, mf.file_url AS thumbnail_url FROM industries i LEFT JOIN media_files mf ON i.thumbnail_id = mf.file_id WHERE i.is_active = true ORDER BY i.sort_order`);
     res.json({ success: true, data: result.rows });
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error(err.stack);
+    next(err);
+}
 });
 
 router.get('/about', async (req, res, next) => {
@@ -63,7 +75,10 @@ router.get('/about', async (req, res, next) => {
       query(`SELECT * FROM company_timeline WHERE is_active = true ORDER BY year`),
     ]);
     res.json({ success: true, data: { team: team.rows, timeline: timeline.rows, awards: [], certifications: [] } });
-  } catch (err) { next(err); }
+  }catch (err) {
+    console.error(err.stack);
+    next(err);
+}
 });
 
 module.exports = router;
