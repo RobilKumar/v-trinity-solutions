@@ -38,20 +38,31 @@ app.use(helmet({
 
 // CORS — allow requests from the configured frontend origin (supports Vercel preview URLs)
 const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:3000',
-  /^https:\/\/.*\.vercel\.app$/,
+    'https://vtrinity.in',
+    'https://www.vtrinity.in',
+    'http://localhost:3000',
+    /^https:\/\/.*\.vercel\.app$/,
 ];
-app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true); // allow server-to-server or curl
-    const allowed = allowedOrigins.some(o => (o instanceof RegExp ? o.test(origin) : o === origin));
-    cb(allowed ? null : new Error('CORS blocked'), allowed);
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
 
+app.use(cors({
+    origin: (origin, callback) => {
+
+        if (!origin) return callback(null, true);
+
+        const allowed = allowedOrigins.some(item =>
+            item instanceof RegExp
+                ? item.test(origin)
+                : item === origin
+        );
+
+        if (allowed) {
+            callback(null, true);
+        } else {
+            callback(new Error(`Origin blocked: ${origin}`));
+        }
+    },
+    credentials: true
+}));
 // Compress all responses to reduce bandwidth
 app.use(compression());
 
